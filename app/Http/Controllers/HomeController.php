@@ -30,7 +30,7 @@ class HomeController extends Controller
                 return view('admin.layouts.app');
                 break;
             default :
-                return view('users.layouts.app');
+                return view('welcome');
         }
     }
 }
