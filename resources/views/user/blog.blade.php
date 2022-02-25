@@ -1,8 +1,8 @@
 @extends('user.app')
 
-@section('bg-img','')
+@section('bg-img',asset('user/img/contact-bg.jpg'))
 	
-@section('title', '')
+@section('title', 'Blogging...')
 @section('sub-heading','')
 
 @section('main-content')

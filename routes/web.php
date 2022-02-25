@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\UserController;
 // use Spatie\Permission\Models\Role;
 // use Spatie\Permission\Models\Permission;
 
@@ -31,16 +32,11 @@ Route::namespace('Admin')->prefix('admin')->group(function(){
     });
 
     Route::middleware('auth:admin')->group(function(){
-        
+        Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
+        Route::post('users/store', [UserController::class, 'store']);
     });
 });
 
-    Route::get('blog', function(){
-        return view('user.blog');
-    });
-    Route::get('post', function(){
-        return view('user.post');
-    });
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

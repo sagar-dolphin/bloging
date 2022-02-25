@@ -1,8 +1,4 @@
 
-<!-- Preloader -->
-<div class="preloader flex-column justify-content-center align-items-center">
-  <img class="animation__shake" src="{{ asset('admins/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
-</div>
 
  <!-- Navbar -->
  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -141,3 +137,17 @@
     </ul>
   </nav>
   <!-- /.navbar -->
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+              <h1 class="m-0">@yield('heading')</h1>
+              <button id="add_user_btn" data-toggle="modal" data-target="#addUserModal" class="btn btn-primary">Add User</button>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->

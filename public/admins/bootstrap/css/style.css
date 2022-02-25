@@ -1,0 +1,49 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+table.dataTable {
+    width: 95%;
+    border-radius: 40px;
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: #333;
+    margin: 0 31px;
+}
+
+[type=search] {
+    outline-offset: -2px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+button, input {
+    overflow: visible;
+    border: 1px solid #0D7BFF;
+    border-radius: 23px;
+    padding: 6px 22px;
+}
+
+select {
+    word-wrap: normal;
+    border: 1px solid #0D7BFF;
+    outline: none;
+    background: white;
+    border-radius: 11px;
+    padding: 5px;
+}
+
+#add_user_btn {
+    position: relative;
+    left: 90rem;
+    bottom: 2rem;
+}
+/* table > thead, table.dataTable > tbody > tr {
+    background-color: #0D7BFF;
+    color: aliceblue;
+} */
+
+
+

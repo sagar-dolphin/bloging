@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'user',
             'guard_name' => 'web'
         ]);
-
+        
         DB::table('roles')->insert([
             'name' => 'admin',
             'guard_name' => 'admin'
