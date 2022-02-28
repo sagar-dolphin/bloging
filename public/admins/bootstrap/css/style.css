@@ -40,6 +40,11 @@ select {
     left: 90rem;
     bottom: 2rem;
 }
+
+ #users-table_length > label > select > option:hover {
+    background-color: red;
+}
+
 /* table > thead, table.dataTable > tbody > tr {
     background-color: #0D7BFF;
     color: aliceblue;

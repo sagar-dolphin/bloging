@@ -67,6 +67,7 @@
 @push('scripts')
 
     {{-- Yajra Datatable --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 
     {{-- Custom script --}}
@@ -101,19 +102,50 @@
 
             $("#addUserForm").on('submit', function(event){
                 event.preventDefault();
-                var form = $("#addUserForm")[0];
-                var formData = new FormData(form);
-                $.ajax({
-                    url: '/admin/users/store',
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-                    type: 'post',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(data){
-
+                $("#addUserForm").validate({
+                  rules: {
+                    name: 'required',
+                    email: {
+                      required: 'true',
+                      email: 'true',
+                    },
+                    password: {
+                      required: 'true',
+                      minlength: 8,
+                      maxlength: 15,
                     }
-                })
+                  }, 
+                  messages: {
+                    name: '<small class="text-danger"><b>Name is required!</b></small>',
+                    email: {
+                      required: '<small class="text-danger"><b>Email is required!</b></small>',
+                      email: '<small class="text-danger"><b>Invalid email!</b></small>',
+                    },
+                    password: {
+                      required: '<small class="text-danger"><b>Password is required!</b></small>',
+                      minlength: '<small class="text-danger"><b>Minimum 8 character is required!</b></small>',
+                      maxlength: '<small class="text-danger"><b>Password is too long!</b></small>',
+                    }
+                  }
+                });
+                if($("#addUserForm").valid()){
+                  var form = $("#addUserForm")[0];
+                  var formData = new FormData(form);
+                  $.ajax({
+                      url: '/admin/users/store',
+                      headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                      type: 'post',
+                      data: formData,
+                      contentType: false,
+                      processData: false,
+                      success: function(data){
+                        console.log(data);
+                      },
+                      error: function(error){
+                        console.log(error);
+                      }
+                  });
+                }
             });
         });
     </script>
