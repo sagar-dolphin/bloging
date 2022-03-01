@@ -34,6 +34,7 @@ Route::namespace('Admin')->prefix('admin')->group(function(){
     Route::middleware('auth:admin')->group(function(){
         Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
         Route::post('users/store', [UserController::class, 'store']);
+        Route::get('users/edit/{id}', [UserController::class, 'edit']);
     });
 });
 

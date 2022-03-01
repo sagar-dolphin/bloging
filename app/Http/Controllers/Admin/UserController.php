@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserPostRequest;
 use App\Services\UserService;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,10 +16,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UserPostRequest $request, UserService $userService)
+    public function index(UserService $userService, Request $request)
     {
-        if($request->validated() && $request->ajax()){
-            return $userService->getAllUsers($request);
+        if($request->ajax()){
+            return $userService->getDataTable($request);
         }
         return view('admin.users.index');
     }
@@ -39,11 +42,23 @@ class UserController extends Controller
      */
     public function store(UserPostRequest $request)
     {
-        if($request->validated() && $request->ajax()){
-            // return response()->json();
-            
+        if($request->ajax()){
+            try {
+                $attributes = $request->validated();
+                $user = User::create($attributes);
+                return response()->json([
+                    'success' => true,
+                    'title' => 'User',
+                    'message' => 'User successfully created!'
+                ], 200);
+            }  catch(\Exception $e){
+                return response()->json([
+                    'success' => false,
+                    'title' => 'User',
+                    'message' => 'Something went wrong!'
+                ], 200);
+            }
         }
-        
     }
 
     /**
@@ -65,7 +80,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd('hello');
     }
 
     /**

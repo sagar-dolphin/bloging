@@ -3,23 +3,31 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\UserPostRequest;
 use App\Models\User;
-use Datatables;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserService {
 
-    protected $request;
+    public $request;
 
-    public function __construct(UserPostRequest $request)
+    public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-    public function getAllUsers($request)
+    public function getDataTable($request)
     {
-        return datatables()->of(User::all())
-        ->addColumn('action', '<button class="btn" ><i class="fas fa-edit"></i></button><button class="btn"><i class="fa fa-trash"></i></button>')
+        $users = User::select('*');
+        return DataTables::eloquent($users)
+        ->addColumn('action', function($users){
+            $getHtml = '<button class="btn user" data-id="'.$users->id.'">';
+            $getHtml .= '<i class="fas fa-edit"></i>';
+            $getHtml .= '</button>';
+            $getHtml .= '<button class="btn user" data-id="'.$users->id.'">';
+            $getHtml .= '<i class="fa fa-trash"></i>';
+            $getHtml .= '</button>';
+            return $getHtml;
+        })
         ->rawColumns(['action'])
         ->addIndexColumn()
         ->make(true);

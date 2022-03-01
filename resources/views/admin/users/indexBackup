@@ -13,7 +13,6 @@
 
   {{-- User's Datatable --}}
   <table class="table table-bordered text-center m-5" id="users-table">
-    <span id="userStatusMsg" class=""></span>
     <thead>
         <tr>
             <th>Id</th>
@@ -32,7 +31,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addUserModal">Add User</h5>
-          <span id="formMsgOnError" class="ml-2"></span>
           <button type="button" class="btn-close btn" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
         <div class="modal-body">
@@ -56,7 +54,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="closeUserFormBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Add</button>
             </div>
         </form>
@@ -97,41 +95,52 @@
                         {data: 'updated_at', name: 'updated_at'},
                         {data: 'action', name: 'action', orderable: false},
                     ],
-                    order: [[0, 'asc']],
-                    paging: true,
-                    searching: true,
-                    destroy: true
+                    order: [[0, 'asc']]
                 });
             }
             index();
 
-            $("#addUserForm").on('submit', function(ev){
-                ev.preventDefault();
-                $(this).validate({
+            $("#addUserForm").on('submit', function(event){
+                event.preventDefault();
+                var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                var passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$/;
+                jQuery.validator.addMethod('email_rule', function(value, element){
+                  if(emailRegex.test(value)){
+                    return true;
+                  }else{
+                    return false;
+                  }
+                });
+                jQuery.validator.addMethod('password_rule', function(value, element){
+                  if(passwordRegex.test(value)){
+                    return true;
+                  }else{
+                    return false;
+                  }
+                });
+                $("#addUserForm").validate({
                   rules: {
-                    name: "required",
-                    email: {
-                      required: true,
-                      email: true
+                    name: 'required',
+                    join[email]: {
+                      required: 'true',
+                      email_rule: 'true',
                     },
-                    password: {
-                      required: true,
-                      minlength: 8
-                    },
-                  },
-
-                  // Specify validation error messages
+                    join[password]: {
+                      required: 'true',
+                      password_rule: 'true',
+                    }
+                  }, 
                   messages: {
-                    name: "<small style='color:red;'><b>Name is required!</b></small>",
-                    password: {
-                      required: "<small style='color:red;'><b>Password is required!</b></small>",
-                      minlength: "<small style='color:red;'><b>Password must be at least 8 characters long!</b></small>"
-                    },
+                    name: '<small class="text-danger"><b>Name is required!</b></small>',
                     email: {
-                        required : "<small style='color:red;'><b>Email is required!</b></small>",
-                        email : "<small style='color:red;'><b>Invalid email!</b></small>",
+                      required: '<small class="text-danger"><b>Email is required!</b></small>',
+                      email_rule: '<small class="text-danger"><b>Invalid email!</b></small>',
                     },
-                  },
+                    password: {
+                      required: '<small class="text-danger"><b>Password is required!</b></small>',
+                      password_rule: '<small class="text-danger"><b>Low strength password!</b></small>'
+                    }
+                  }
                 });
                 if($("#addUserForm").valid()){
                   // var form = $("#addUserForm")[0];
@@ -146,39 +155,12 @@
                       processData: false,
                       success: function(data){
                         console.log(data);
-                        if(data.success){
-                          $("#closeUserFormBtn").click();
-                          $("#addUserForm")[0].reset();
-                          $("#userStatusMsg").text(data.message);
-                          setTimeout(() => {
-                            $("#userStatusMsg").fadeOut();
-                          }, 3000);
-                          $("#userStatusMsg").addClass('alert alert-success');
-                          index();
-                        }else{
-                          $("#addUserForm")[0].reset();
-                          $("#formMsgOnError").addClass('alert alert-danger');
-                          $("#formMsgOnError").text('Something went wrong, try again!');
-                        }
                       },
                       error: function(error){
                         console.log(error);
                       }
                   });
                 }
-            });
-
-            $("#users-table").on('click', '.user', function(ev){
-              ev.preventDefault();
-              var id = $(this).data('id');
-              $.ajax({
-                url: '/admin/users/edit/'+id,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-                type: 'get',
-                success: function(data){
-
-                }
-              });
             });
         });
     </script>

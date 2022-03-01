@@ -45,6 +45,12 @@ select {
     background-color: red;
 }
 
+#userStatusMsg {
+    position: relative;
+    left: 39rem;
+    bottom: 5rem;
+    box-shadow: 10px 10px 10px grey;
+}
 /* table > thead, table.dataTable > tbody > tr {
     background-color: #0D7BFF;
     color: aliceblue;
