@@ -24,10 +24,16 @@ class UserPostRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $appendRules = array();
+        if(isset($this->password)){
+            $appendRules['password'] = 'required|min:8';
+        }else{
+            $appendRules['password'] = 'nullable';
+        }
         return [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8'
-        ];
+        ] + $appendRules;
     }
 }

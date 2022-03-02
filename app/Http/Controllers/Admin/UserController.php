@@ -8,6 +8,7 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -42,7 +43,7 @@ class UserController extends Controller
      */
     public function store(UserPostRequest $request)
     {
-        if($request->ajax()){
+        if($request->ajax() && $request->validated()){
             try {
                 $attributes = $request->validated();
                 $user = User::create($attributes);
@@ -80,7 +81,16 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        dd('hello');
+        try {
+            $user = User::find($id);
+            return response()->json($user);
+        } catch(\Exception $e){
+            return response()->json([
+                'success' => false,
+                'title' => 'Edit User',
+                'message' => 'Something problem to edit user!'
+            ]);
+        }
     }
 
     /**
@@ -90,9 +100,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserPostRequest $request)
     {
-        //
+        if($request->ajax() && $request->validated()){
+            try {
+                $attributes = $request->all();
+                $user = User::find($request->user_id);
+                $user->update($attributes);
+                return response()->json([
+                    'success' => true,
+                    'title' => 'User',
+                    'message' => 'successfully updated!'
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'title' => 'User',
+                    'message' => 'Something problem to update data!'
+                ]);
+            }
+        }
     }
 
     /**
@@ -103,6 +130,20 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $user = User::find($id);
+            $user->delete();
+            return response()->json([
+                'success' => true,
+                'title' => 'User',
+                'message' => 'successfully deleted'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'title' => 'User',
+                'message' => 'failed to delete user'
+            ]);
+        }
     }
 }

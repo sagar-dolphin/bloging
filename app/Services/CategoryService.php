@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Category;
 use Yajra\DataTables\Facades\DataTables;
 
-class UserService {
+class CategoryService {
 
     public $request;
 
@@ -17,13 +17,13 @@ class UserService {
 
     public function getDataTable($request)
     {
-        $users = User::select('*');
-        return DataTables::eloquent($users)
-        ->addColumn('action', function($users){
-            $getHtml = '<button class="btn user" data-id="'.$users->id.'">';
+        $categories = Category::select('*');
+        return DataTables::eloquent($categories)
+        ->addColumn('action', function($categories){
+            $getHtml = '<button class="btn category" data-id="'.$categories->id.'">';
             $getHtml .= '<i class="fas fa-edit"></i>';
             $getHtml .= '</button>';
-            $getHtml .= '<button class="btn removeUser" data-id="'.$users->id.'">';
+            $getHtml .= '<button class="btn removeCategory" data-id="'.$categories->id.'">';
             $getHtml .= '<i class="fa fa-trash"></i>';
             $getHtml .= '</button>';
             return $getHtml;
@@ -31,10 +31,5 @@ class UserService {
         ->rawColumns(['action'])
         ->addIndexColumn()
         ->make(true);
-    }
-
-    public function isPasswordMatched($request)
-    {
-
     }
 }

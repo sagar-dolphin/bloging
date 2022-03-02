@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Faker\Factory as Faker;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // \App\Models\Category::factory(100)->create();
 
         $permissions = array('add-post', 'edit-post', 'update-post', 'delete-post', 'add-category', 'edit-category', 'update-category', 'delete-category', 'add-comment', 'delete-comment', 'add-subscriber', 'remove-subscriber');
 
