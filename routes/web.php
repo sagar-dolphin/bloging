@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController;
 // use Spatie\Permission\Models\Role;
 // use Spatie\Permission\Models\Permission;
 
@@ -39,6 +40,11 @@ Route::namespace('Admin')->prefix('admin')->group(function(){
         Route::post('users/update', [UserController::class, 'update']);
         Route::get('users/destroy/{id}', [UserController::class, 'destroy']);
         Route::get('categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+        Route::post('categories/store', [CategoryController::class, 'store']);
+        Route::get('categories/edit/{id}', [CategoryController::class, 'edit']);
+        Route::post('categories/update', [CategoryController::class, 'update']);
+        Route::get('categories/destroy/{id}', [CategoryController::class, 'destroy']);
+        Route::get('posts', [PostController::class, 'index'])->name('admin.posts.index');
     }); 
 });
 

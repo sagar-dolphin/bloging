@@ -10,6 +10,7 @@
 
 <!-- Content Header (Page header) -->
 @section('heading', 'Users')
+@section('data-target', '#addUserModal')
 
   {{-- User's Datatable --}}
   <table class="table table-bordered text-center m-5" id="users-table">

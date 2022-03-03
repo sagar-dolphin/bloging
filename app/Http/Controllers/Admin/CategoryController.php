@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\CategoryService;
+use App\Http\Requests\CategoryPostRequest;
 
 class CategoryController extends Controller
 {
@@ -38,9 +39,26 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryPostRequest $request)
     {
-        //
+        if($request->ajax() && $request->validated()){
+            try {
+                $attributes = $request->validated();
+                $category = Category::create($attributes);
+
+                return response()->json([
+                    'success' => true,
+                    'title' => 'Category',
+                    'message' => 'successfully added!'
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'title' => 'Category',
+                    'message' => 'something went wrong',
+                ], 200);
+            }
+        }
     }
 
     /**
@@ -51,7 +69,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        
     }
 
     /**
@@ -60,9 +78,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        try {
+            $category = Category::find($id);
+            return response()->json($category);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'title' => 'Category',
+                'message' => 'something went wrong!',
+            ]);
+        }
     }
 
     /**
@@ -72,9 +99,25 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryPostRequest $request, Category $category)
     {
-        //
+        if($request->ajax()){
+            try {
+                $category = Category::find($request->cat_id);
+                $category->update($request->all());
+                return response()->json([
+                    'success' => true,
+                    'title' => 'category',
+                    'message' => 'successfully updated!',
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'title' => 'category',
+                    'message' => 'something went wrong!',
+                ]);
+            }
+        }
     }
 
     /**
@@ -83,8 +126,24 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id, Request $request)
     {
-        //
+        if($request->ajax()){
+            try {
+                $category = Category::find($id);
+                $category->delete();
+                return response()->json([
+                    'success' => true,
+                    'title' => 'Category',
+                    'message' => 'successfully deleted!',
+                ]);
+            } catch (\Exception $th) {
+                return response()->json([
+                    'success' => false,
+                    'title' => 'Category',
+                    'message' => 'failed to delete!',
+                ]);
+            }
+        }
     }
 }

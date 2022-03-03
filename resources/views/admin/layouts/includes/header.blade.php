@@ -145,7 +145,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
               <h1 class="m-0">@yield('heading')</h1>
-              <button id="add_user_btn" data-toggle="modal" data-target="#addUserModal" class="btn btn-primary">Add User</button>
+              <button id="add_user_btn" data-toggle="modal" data-target="@yield('data-target')" class="btn btn-primary">Add @yield('heading')</button>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->

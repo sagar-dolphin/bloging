@@ -8,7 +8,12 @@
         <img src="{{ asset('admins/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="" class="d-block">
+          @auth('admin')
+              <span><b>{{ ucfirst(auth()->user()->name) }}</b></span><br>
+              <span><small class="fa fa-circle text-success"></small> online</span>
+          @endauth
+        </a>
       </div>
     </div>
 
