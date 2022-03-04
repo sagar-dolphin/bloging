@@ -30,47 +30,44 @@
     </div>
 
     <!-- Sidebar Menu -->
-    <nav class="mt-2">
+    <nav id="sidebar_navbar" class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item menu-open">
-          <a href="/admin" class="nav-link active">
+          <a href="/admin" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Dashboard
-              <i class="right fas fa-angle-left"></i>
-            </p>
+            <p> Dashboard</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/admin/users" class="nav-link">
-            <i class="nav-icon far fa-circle text-info"></i>
-            <p class="text">Users</p>
+            <i class="fa fa-user text-info"></i>
+            <p class="text"> Users</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/admin/categories" class="nav-link">
-            <i class="nav-icon far fa-circle text-info"></i>
-            <p>Categories</p>
+            <i class="fa fa-layer-group text-info"></i>
+            <p> Categories</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/admin/tags" class="nav-link">
-            <i class="nav-icon far fa-circle text-info"></i>
-            <p>Tags</p>
+            <i class="fa fa-tags text-info"></i>
+            <p> Tags</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/admin/posts" class="nav-link">
-            <i class="nav-icon far fa-circle text-info"></i>
-            <p>Posts</p>
+            <i class="fa fa-address-card text-info"></i>
+            <p> Posts</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/admin/roles" class="nav-link">
-            <i class="nav-icon far fa-circle text-info"></i>
-            <p>Roles</p>
+            <i class="fa fa-hand-sparkles text-info "></i>
+            <p> Roles</p>
           </a>
         </li>
         {{-- <li class="nav-item">

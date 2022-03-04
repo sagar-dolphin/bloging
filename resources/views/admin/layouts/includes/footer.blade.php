@@ -48,3 +48,29 @@
 <script src="{{ asset('admins/dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('admins/dist/js/pages/dashboard.js')}}"></script>
+
+<script>
+  $(function(){
+    // $('nav > ul > .nav-item > a').click(function (ev) {
+    //   $('nav > ul > .nav-item > a').removeClass('active');
+    //   $(this).addClass('active');
+    // });
+
+
+    // Add active class to nav-link based on url dynamically
+    // Active class can be hard coded directly in html file also as required
+    var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
+    $('#sidebar_navbar > ul > .nav-item > a').each(function() {
+      var $this = $(this);
+        //for other url
+        if(current != 'admin'){
+            if ($this.attr('href').indexOf(current) !== -1) {
+            $(this).parents('.nav-item').last().addClass('active');
+            if ($(this).parents('.nav-item').length) {
+              $(this).addClass('active');
+            }
+          }
+        }
+    });
+  });
+</script>

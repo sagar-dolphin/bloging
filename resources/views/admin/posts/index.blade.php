@@ -5,8 +5,6 @@
     <!-- DataTables -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{ asset('admins/bootstrap/css/style.css') }}">
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     

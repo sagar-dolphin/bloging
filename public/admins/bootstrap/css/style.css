@@ -21,14 +21,14 @@ table.dataTable {
 
 button, input {
     overflow: visible;
-    border: 1px solid #0D7BFF;
+    border: 1px solid hotpink;
     border-radius: 23px;
     padding: 6px 22px;
 }
 
 select {
     word-wrap: normal;
-    border: 1px solid #0D7BFF;
+    border: 1px solid hotpink;
     outline: none;
     background: white;
     border-radius: 11px;
@@ -37,8 +37,11 @@ select {
 
 #add_user_btn {
     position: relative;
-    left: 90rem;
+    left: 87rem;
     bottom: 2rem;
+    background-color: hotpink !important;
+    outline: none;
+    border: 1px solid hotpink;
 }
 
  #users-table_length > label > select > option:hover {
@@ -60,6 +63,68 @@ select {
 #categories-table {
     /* width: 827px !important; */
 }
+
+ nav > ul > .nav-item > a.active {
+    background-color:hotpink !important;
+}
+
+.text-info {
+    color: hotpink !important;
+}
+
+.table.text-center, .table.text-center td, .table.text-center th {
+    text-align: left !important;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: hotpink !important;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.dataTables_wrapper .dataTables_info {
+    color: hotpink;
+    margin: 0 31px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+    /* cursor: default;
+    color: #fff !important;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none; */
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    color: hotpink !important;  
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: white !important;
+    border-radius: 20px;
+    padding: inherit;
+    border: 1px solid #cacaca;
+    background-color: hotpink !important;
+    background: none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border-radius: 20px;    
+    border: 1px solid hotpink !important;
+    background-color: hotpink !important;
+    background: none;
+}
+
 /* table > thead, table.dataTable > tbody > tr {
     background-color: #0D7BFF;
     color: aliceblue;

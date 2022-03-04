@@ -145,7 +145,10 @@
         <div class="row mb-2">
           <div class="col-sm-6">
               <h1 class="m-0">@yield('heading')</h1>
-              <button id="add_user_btn" data-toggle="modal" data-target="@yield('data-target')" class="btn btn-primary">Add @yield('heading')</button>
+              @if (request()->routeIs('admin.home'))
+              @else
+                <button id="add_user_btn" data-toggle="modal" style="color: white;" data-target="@yield('data-target')" class="btn-primary">Add @yield('heading')</button>
+              @endif 
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
