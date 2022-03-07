@@ -68,8 +68,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="closePostFormBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="button" id="closePostFormBtn" class="btn btn-light" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-light">Add</button>
             </div>
         </form>
       </div>

@@ -43,12 +43,13 @@ class UserController extends Controller
      */
     public function store(UserPostRequest $request)
     {
-        if($request->ajax() && $request->validated()){
+        if($request->ajax() && $request->validated()){  
             try {
                 $attributes = $request->validated();
                 $user = User::create($attributes);
+                $user->assignRole($request->role);
                 return response()->json([
-                    'success' => true,
+                    'success' => true,  
                     'title' => 'User',
                     'message' => 'User successfully created!'
                 ], 200);
@@ -107,6 +108,7 @@ class UserController extends Controller
                 $attributes = $request->all();
                 $user = User::find($request->user_id);
                 $user->update($attributes);
+                $user->syncRoles($request->role);
                 return response()->json([
                     'success' => true,
                     'title' => 'User',

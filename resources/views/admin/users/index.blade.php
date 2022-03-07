@@ -51,14 +51,20 @@
                   <label for="password" class="form-label">Password</label>
                   <input type="password" class="form-control" name="password" id="password">
                 </div>
+                <div class="mb-3">
+                  <label for="roles">Assign Role</label>
+                  <select name="role" class="role">
+                    <option value=''>Select Role</option>
+                  </select>
+                </div>
                 <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" name="check_me_out" id="exampleCheck1">
                   <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="closeUserFormBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="button" id="closeUserFormBtn" class="btn btn-light" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-light">Add</button>
             </div>
         </form>
       </div>
@@ -87,6 +93,12 @@
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" class="form-control" name="email" id="editEmail" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="roles">Assign Role</label>
+                  <select name="role" class="role">
+                    
+                  </select>
                 </div>
                 {{-- <div class="mb-3">
                   <label for="password" class="form-label">New Password</label> 
@@ -143,6 +155,25 @@
                     destroy: true
                 });
             }
+            function getRoles()
+                {
+                  var roles = '';
+                  $.ajax({
+                      url: '{{ route('admin.roles.show') }}',
+                      headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                      type: 'get',
+                      dataType: 'json',
+                      contentType: false,
+                      processData: false,
+                      success: function(response){
+                        response.forEach(data => {
+                          roles += '<option value='+data.id+'>'+data.name+'</option>';
+                        });
+                        $(".role").append(roles);
+                      }
+                  });
+                }
+            getRoles();
             index();
 
             //Create New User
@@ -155,6 +186,7 @@
                       required: true,
                       email: true
                     },
+                    role: 'required',
                     password: {
                       required: true,
                       minlength: 8
@@ -164,13 +196,14 @@
                   // Specify validation error messages
                   messages: {
                     name: "<small style='color:red;'><b>Name is required!</b></small>",
-                    password: {
-                      required: "<small style='color:red;'><b>Password is required!</b></small>",
-                      minlength: "<small style='color:red;'><b>Password must be at least 8 characters long!</b></small>"
-                    },
                     email: {
                         required : "<small style='color:red;'><b>Email is required!</b></small>",
                         email : "<small style='color:red;'><b>Invalid email!</b></small>",
+                    },
+                    role: "<small style='color:red;'><b>Role is required!</b></small>",
+                    password: {
+                      required: "<small style='color:red;'><b>Password is required!</b></small>",
+                      minlength: "<small style='color:red;'><b>Password must be at least 8 characters long!</b></small>"
                     },
                   },
                 });
@@ -186,7 +219,6 @@
                       contentType: false,
                       processData: false,
                       success: function(data){
-                        console.log(data);
                         if(data.success){
                           $("#closeUserFormBtn").click();
                           $("#addUserForm")[0].reset();
@@ -218,7 +250,6 @@
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
                 type: 'get',
                 success: function(data){
-                  console.log(data);
                   $("#user_id").val(data.id);
                   $("#editName").val(data.name);
                   $("#editEmail").val(data.email);
