@@ -103,7 +103,7 @@
 
         function index()
         {
-            $("#categories-table").DataTable({
+            let dataTable = $("#categories-table").DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('admin.categories.index')}}',
@@ -121,6 +121,11 @@
                     { width: 100, targets: 2 },
                 ],
             });
+            @role('editor')
+              dataTable.column(2).visible(true);
+            @else
+              dataTable.column(2).visible(false);
+            @endrole
         }
         index();
 

@@ -20,8 +20,6 @@
             {{-- <th>Id</th> --}}
             <th>Name</th>
             <th>Email</th>
-            <th>Created At</th>
-            <th>Updated At</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -145,8 +143,6 @@
                         // {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
                         {data: 'email', name: 'email'},
-                        {data: 'created_at', name: 'created_at'},
-                        {data: 'updated_at', name: 'updated_at'},
                         {data: 'action', name: 'action', orderable: false},
                     ],
                     order: [[0, 'asc']],
@@ -234,9 +230,6 @@
                           $("#formMsgOnError").text('Something went wrong, try again!');
                         }
                       },
-                      error: function(error){
-                        console.log(error);
-                      }
                   });
                 }
             });
@@ -312,8 +305,6 @@
                           }, 3000);
                           $("#userStatusMsg").addClass('alert alert-success');
                           index();
-                        }else{
-                          
                         }
                       },
                   });

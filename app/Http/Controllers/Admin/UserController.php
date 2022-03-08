@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserPostRequest;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Admin\Admin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -46,7 +46,7 @@ class UserController extends Controller
         if($request->ajax() && $request->validated()){  
             try {
                 $attributes = $request->validated();
-                $user = User::create($attributes);
+                $user = Admin::create($attributes);
                 $user->assignRole($request->role);
                 return response()->json([
                     'success' => true,  
@@ -83,7 +83,7 @@ class UserController extends Controller
     public function edit($id)
     {
         try {
-            $user = User::find($id);
+            $user = Admin::find($id);
             return response()->json($user);
         } catch(\Exception $e){
             return response()->json([
@@ -106,7 +106,7 @@ class UserController extends Controller
         if($request->ajax() && $request->validated()){
             try {
                 $attributes = $request->all();
-                $user = User::find($request->user_id);
+                $user = Admin::find($request->user_id);
                 $user->update($attributes);
                 $user->syncRoles($request->role);
                 return response()->json([
@@ -133,7 +133,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $user = User::find($id);
+            $user = Admin::find($id);
             $user->delete();
             return response()->json([
                 'success' => true,

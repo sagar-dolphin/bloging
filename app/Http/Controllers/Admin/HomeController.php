@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Models\User\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 

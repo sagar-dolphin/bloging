@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Admin\Admin;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserService {
@@ -17,7 +17,7 @@ class UserService {
 
     public function getDataTable($request)
     {
-        $users = User::select('*');
+        $users = Admin::select('*');
         return DataTables::eloquent($users)
         ->addColumn('action', function($users){
             $getHtml = '<button class="btn user" data-id="'.$users->id.'">';
@@ -31,10 +31,5 @@ class UserService {
         ->rawColumns(['action'])
         ->addIndexColumn()
         ->make(true);
-    }
-
-    public function isPasswordMatched($request)
-    {
-
     }
 }

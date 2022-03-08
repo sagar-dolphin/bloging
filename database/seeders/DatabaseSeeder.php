@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\Category::factory(100)->create();
 
-        $permissions = array('add-post', 'edit-post', 'update-post', 'delete-post', 'add-category', 'edit-category', 'update-category', 'delete-category', 'add-comment', 'delete-comment', 'add-subscriber', 'remove-subscriber');
+        // $permissions = array('add-post', 'edit-post', 'update-post', 'delete-post', 'add-category', 'edit-category', 'update-category', 'delete-category', 'add-comment', 'delete-comment', 'add-subscriber', 'remove-subscriber');
 
         DB::table('admins')->insert([
             'name' => 'admin',
@@ -28,22 +28,22 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin@123'),
         ]);
 
-        DB::table('roles')->insert([
-            'name' => 'user',
-            'guard_name' => 'web'
-        ]);
+        // DB::table('roles')->insert([
+        //     'name' => 'user',
+        //     'guard_name' => 'web'
+        // ]);
         
-        DB::table('roles')->insert([
-            'name' => 'admin',
-            'guard_name' => 'admin'
-        ]);
+        // DB::table('roles')->insert([
+        //     'name' => 'admin',
+        //     'guard_name' => 'admin'
+        // ]);
 
-        foreach($permissions as $permission)
-        {
-            DB::table('permissions')->insert([
-                'name' => $permission,
-                'guard_name' => 'web'
-            ]);
-        }  
+        // foreach($permissions as $permission)
+        // {
+        //     DB::table('permissions')->insert([
+        //         'name' => $permission,
+        //         'guard_name' => 'web'
+        //     ]);
+        // }  
     }
 }
