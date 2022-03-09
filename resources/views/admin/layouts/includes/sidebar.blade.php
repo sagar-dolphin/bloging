@@ -40,42 +40,41 @@
             <p> Dashboard</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="/admin/users" class="nav-link">
-            <i class="fa fa-user text-info"></i>
-            <p class="text"> Users</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/admin/categories" class="nav-link">
-            <i class="fa fa-layer-group text-info"></i>
-            <p> Categories</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/admin/tags" class="nav-link">
-            <i class="fa fa-tags text-info"></i>
-            <p> Tags</p>
-          </a>
-        </li>
+        @role('super-admin')
+          <li class="nav-item">
+            <a href="/admin/users" class="nav-link">
+              <i class="fa fa-user text-info"></i>
+              <p class="text"> Users</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/categories" class="nav-link">
+              <i class="fa fa-layer-group text-info"></i>
+              <p> Categories</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/tags" class="nav-link">
+              <i class="fa fa-tags text-info"></i>
+              <p> Tags</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/roles" class="nav-link">
+              <i class="fa fa-hand-sparkles text-info "></i>
+              <p> Roles</p>
+            </a>
+          </li>
+        @endrole
+        
+        @hasanyrole('writer|editor|publisher')
         <li class="nav-item">
           <a href="/admin/posts" class="nav-link">
             <i class="fa fa-address-card text-info"></i>
             <p> Posts</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="/admin/roles" class="nav-link">
-            <i class="fa fa-hand-sparkles text-info "></i>
-            <p> Roles</p>
-          </a>
-        </li>
-        {{-- <li class="nav-item">
-          <a href="/admin/permissions" class="nav-link">
-            <i class="nav-icon far fa-circle text-info"></i>
-            <p>Permissions</p>
-          </a>
-        </li> --}}
+        @endhasanyrole
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

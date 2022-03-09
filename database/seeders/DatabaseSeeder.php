@@ -22,11 +22,30 @@ class DatabaseSeeder extends Seeder
 
         // $permissions = array('add-post', 'edit-post', 'update-post', 'delete-post', 'add-category', 'edit-category', 'update-category', 'delete-category', 'add-comment', 'delete-comment', 'add-subscriber', 'remove-subscriber');
 
-        DB::table('admins')->insert([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin@123'),
-        ]);
+        DB::table('admins')->insert(
+        
+        // [
+        //     'name' => 'admin',
+        //     'email' => 'admin@gmail.com',
+        //     'password' => Hash::make('admin@123'),
+        // ],
+        // [
+        //     'name' => 'parth',
+        //     'email' => 'parth@gmail.com',
+        //     'password' => Hash::make('parth@123'),
+        // ],   
+        // [
+        //     'name' => 'jaydip',
+        //     'email' => 'jaydip@gmail.com',
+        //     'password' => Hash::make('jaydip@123'),
+        // ],
+        // [
+        //     'name' => 'sagar',
+        //     'email' => 'sagar@gmail.com',
+        //     'password' => Hash::make('sagar@123'),
+        // ],
+
+);
 
         // DB::table('roles')->insert([
         //     'name' => 'user',

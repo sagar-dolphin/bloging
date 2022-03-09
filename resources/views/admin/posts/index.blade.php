@@ -29,8 +29,6 @@
             <th>Image</th>
             <th>Like</th>
             <th>Dislike</th>
-            <th>Created At</th>
-            <th>Updated At</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -46,25 +44,31 @@
           <button type="button" class="btn-close btn" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
         <div class="modal-body">
-            <form id="addPostForm" method="POST">
+            <form id="addPostForm" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Title</label>
+                    <label for="name" class="form-label">Title <b class="text-danger">*</b></label>
                     <input type="text" class="form-control" name="title" id="title">
                 </div>
                 <div class="mb-3">
-                    <label for="name" class="form-label">Subtitle</label>
+                    <label for="name" class="form-label">Subtitle <b class="text-danger">*</b></label>
                     <input type="text" class="form-control" name="subtitle" id="subtitle">
                 </div>
                 <div class="mb-3">
-                    <label for="name" class="form-label">Slug</label>
+                    <label for="name" class="form-label">Slug <b class="text-danger">*</b></label>
                     <input type="text" class="form-control" name="slug" id="slug">
                 </div>
                 <div class="mb-3">
+                    <label for="name" class="form-label">Image</label>
+                    <input type="file" name="image" id="image">
+                </div>
+                <div class="mb-3">
+                    <label id="description-msg" for="name" class="form-label">Description <b class="text-danger">*</b></label>
                     <textarea id="summernote" name="description"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="name" class="form-label">Posted</label>
-                    <input type="number" class="form-control" name="slug" id="slug">
+                    <label for="name" class="form-label">Status</label><br>
+                    <input type="radio" name="status" id="status1"> Enable
+                    <input type="radio" name="status" id="status2"> Disable
                 </div>
             </div>
             <div class="modal-footer">
@@ -88,6 +92,10 @@
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 
     <script>
+
+        //description plugin
+        $('#summernote').summernote();
+
         // Request Header
         $.ajaxSetup({
             headers: {
@@ -95,28 +103,63 @@
             }
         });
 
-        $('#summernote').summernote();
-        function index()
-        {
-            $("#posts-table").DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{{ route('admin.posts.index')}}',
-                columns: [
-                    // {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'slug', name: 'slug'},
-                    {data: 'created_at', name: 'created_at'},
-                    {data: 'updated_at', name: 'updated_at'},
-                    {data: 'action', name: 'action', orderable: false},
-                ],
-                order: [[0, 'asc']],
-                paging: true,
-                searching: true,
-                destroy: true
-            });
-        }
+        // function index()
+        // {
+        //     $("#posts-table").DataTable({
+        //         processing: true,
+        //         serverSide: true,
+        //         ajax: '{{ route('admin.posts.index')}}',
+        //         columns: [
+        //             // {data: 'id', name: 'id'},
+        //             {data: 'name', name: 'name'},
+        //             {data: 'slug', name: 'slug'},
+        //             {data: 'created_at', name: 'created_at'},
+        //             {data: 'updated_at', name: 'updated_at'},
+        //             {data: 'action', name: 'action', orderable: false},
+        //         ],
+        //         order: [[0, 'asc']],
+        //         paging: true,
+        //         searching: true,
+        //         destroy: true
+        //     });
+        // }
+        // index();
 
-        index();
+        $("#addPostForm").on('submit', function(ev){
+            ev.preventDefault();
+            var formData = new FormData(this);
+            $(this).validate({
+                rules: {
+                    title: 'required',
+                    subtitle: 'required',
+                    slug: 'required',
+                    description: 'required',
+                },
+
+                messages: {
+                    title: '<small style="color:red"><b>Title is required!</b></small>',
+                    subtitle: '<small style="color:red"><b>Subtitle is required!</b></small>',
+                    slug: '<small style="color:red"><b>Slug is required!</b></small>',
+                    description: '<small style="color:red"><b>Description is required!</b></small>',
+                }
+            });
+            if($(this).valid() && $(".note-editable > p").text() != ''){
+                let description = $(".note-editable > p").text();
+                $.ajax({
+                    url: '/admin/posts/store',
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                    type: 'post', 
+                    data: formData, description,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+
+                    }
+                });
+            }else{
+                $("#description-msg").append('<small class="text-danger">Description is required!</small>');    
+            }
+        });
+
     </script>
 @endpush
