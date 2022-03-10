@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Service;
+namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Models\Admin\Admin;
@@ -13,5 +13,10 @@ class PostService {
     public function __construct(Request $request)
     {
         $this->request = $request;
+    }
+
+    public function handleImage($request)
+    {
+        
     }
 }

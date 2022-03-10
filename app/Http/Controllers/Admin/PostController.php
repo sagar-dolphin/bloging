@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddPostRequest;
+use App\Services\PostService;
 
 class PostController extends Controller
 {
@@ -35,10 +36,10 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddPostRequest $request)
+    public function store(AddPostRequest $request, PostService $postService)
     {
         if($request->ajax() && $request->validated()){
-            dd($request->image);
+            $image = $postService->handleImage($request->file('image'));
         }
     }
 

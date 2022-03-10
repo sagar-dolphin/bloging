@@ -22,9 +22,10 @@ use App\Http\Controllers\Admin\RoleController;
 |
 */
 
-Route::get('/', function (Request $request) {
+Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::namespace('Admin')->prefix('admin')->group(function(){
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
