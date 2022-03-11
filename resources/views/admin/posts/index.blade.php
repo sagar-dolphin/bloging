@@ -27,8 +27,6 @@
             <th>Posted_by</th>
             <th>Status</th>
             <th>Image</th>
-            <th>Like</th>
-            <th>Dislike</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -66,9 +64,7 @@
                     <textarea id="summernote" name="description"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="name" class="form-label">Status</label><br>
-                    <input type="radio" name="status" id="status1"> Enable
-                    <input type="radio" name="status" id="status2"> Disable
+                    <input type="checkbox" name="status" value="1" id="status" checked> Publish
                 </div>
             </div>
             <div class="modal-footer">
@@ -103,27 +99,29 @@
             }
         });
 
-        // function index()
-        // {
-        //     $("#posts-table").DataTable({
-        //         processing: true,
-        //         serverSide: true,
-        //         ajax: '{{ route('admin.posts.index')}}',
-        //         columns: [
-        //             // {data: 'id', name: 'id'},
-        //             {data: 'name', name: 'name'},
-        //             {data: 'slug', name: 'slug'},
-        //             {data: 'created_at', name: 'created_at'},
-        //             {data: 'updated_at', name: 'updated_at'},
-        //             {data: 'action', name: 'action', orderable: false},
-        //         ],
-        //         order: [[0, 'asc']],
-        //         paging: true,
-        //         searching: true,
-        //         destroy: true
-        //     });
-        // }
-        // index();
+        function index()
+        {
+            $("#posts-table").DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('admin.posts.index')}}',
+                columns: [
+                    {data: 'title', name: 'title'},
+                    {data: 'subtitle', name: 'subtitle'},
+                    {data: 'slug', name: 'slug'},
+                    {data: 'description', name: 'description'},
+                    {data: 'posted_by', name: 'posted_by'},
+                    {data: 'status', name: 'status'},
+                    {data: 'image', name: 'image'},
+                    {data: 'action', name: 'action', orderable: false},
+                ],  
+                order: [[0, 'asc']],
+                paging: true,
+                searching: true,
+                destroy: true
+            });
+        }
+        index();
 
         $("#addPostForm").on('submit', function(ev){
             ev.preventDefault();
@@ -153,7 +151,19 @@
                     contentType: false,
                     processData: false,
                     success: function(response){
-
+                        if(response.success){
+                            $('#closePostFormBtn').click();
+                            $("#addPostForm")[0].reset();
+                            $("#postStatusMsg").text(response.title +' '+response.message);
+                            setTimeout(() => {
+                            $("#postStatusMsg").text(response.title+' '+response.message).show();
+                            }, 0);
+                            setTimeout(() => {
+                            $("#postStatusMsg").fadeOut();
+                            }, 3000);
+                            $("#postStatusMsg").addClass('alert alert-success');
+                            index();
+                        }
                     }
                 });
             }else{

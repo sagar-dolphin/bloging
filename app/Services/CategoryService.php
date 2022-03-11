@@ -26,9 +26,7 @@ class CategoryService {
             $getHtml .= '<button class="btn removeCategory" data-cat_id="'.$categories->id.'">';
             $getHtml .= '<i class="fa fa-trash"></i>';
             $getHtml .= '</button>';
-            if(auth()->user()->hasRole('editor')){
                 return $getHtml;
-            }
         })
         ->rawColumns(['action'])
         ->addIndexColumn()

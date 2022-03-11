@@ -48,7 +48,7 @@ select {
     background-color: red;
 }
 
-#categoryStatusMsg, #userStatusMsg, #roleStatusMsg {
+#categoryStatusMsg, #userStatusMsg, #roleStatusMsg, #postStatusMsg {
     position: relative;
     left: 39rem;
     bottom: 5rem;

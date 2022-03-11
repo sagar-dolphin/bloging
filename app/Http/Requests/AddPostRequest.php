@@ -25,10 +25,7 @@ class AddPostRequest extends FormRequest
     {
         $appendRules = array();
         if(isset($this->image)){
-            $appendRules['image'] =  'required|mimes:jpeg,png,jpg,bmp';
-        }
-        if(isset($this->status)){
-            $appendRules['status'] = 'required';
+            $appendRules['image'] =  'mimes:jpeg,png,jpg,bmp';
         }
         return [
             'title' => 'required',

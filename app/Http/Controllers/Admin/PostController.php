@@ -10,13 +10,24 @@ use App\Services\PostService;
 
 class PostController extends Controller
 {
+    protected Post $post;
+    protected PostService $postService;
+
+    public function __construct(Post $post, PostService $postService)
+    {  
+        $this->post = $post;
+        $this->postService = $postService;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PostService $postService, Request $request)
     {
+        if($request->ajax()){
+            return $postService->getDataTable($request);
+        }
         return view('admin.posts.index');
     }
 
@@ -39,7 +50,24 @@ class PostController extends Controller
     public function store(AddPostRequest $request, PostService $postService)
     {
         if($request->ajax() && $request->validated()){
-            $image = $postService->handleImage($request->file('image'));
+            try {
+                $post = $request->all();
+                if($request->hasfile('image')){
+                    $post['image'] = $postService->handleImage($request->file('image'));
+                }
+                $post = Post::create($post);
+                return response()->json([
+                    'success' => true,  
+                    'title' => 'Post',
+                    'message' => 'successfully created!',
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,  
+                    'title' => 'Post',
+                    'message' => 'something went wrong!',
+                ]);
+            }
         }
     }
 

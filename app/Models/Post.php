@@ -10,6 +10,15 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'subtitle',
+        'slug',
+        'description',
+        'posted_by',
+        'status',
+        'image'
+    ];
     /**
      * The categories that belong to the Post
      *
