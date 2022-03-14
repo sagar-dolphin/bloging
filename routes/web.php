@@ -38,8 +38,10 @@ Route::namespace('Admin')->prefix('admin')->group(function(){
     Route::middleware(['auth:admin', 'role:writer|editor|publisher'])->group(function(){
         Route::get('posts', [PostController::class, 'index'])->name('admin.posts.index');
         Route::post('posts/store', [PostController::class, 'store']);
-    }); 
-    
+        Route::get('posts/edit/{post}', [PostController::class, 'edit']);
+        Route::post('posts/update', [PostController::class, 'update']);
+    });
+
     Route::middleware(['auth:admin', 'role:super-admin'])->group(function () {
         Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
         Route::get('roles/show', [RoleController::class, 'getRoles'])->name('admin.roles.show');

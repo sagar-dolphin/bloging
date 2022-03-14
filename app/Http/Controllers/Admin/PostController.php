@@ -55,6 +55,7 @@ class PostController extends Controller
                 if($request->hasfile('image')){
                     $post['image'] = $postService->handleImage($request->file('image'));
                 }
+                $post['posted_by'] = auth()->user()->name;
                 $post = Post::create($post);
                 return response()->json([
                     'success' => true,  
@@ -88,9 +89,20 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Post $post, Request $request)
     {
-        //
+        if($request->ajax()){
+            try {
+                $post = Post::find($post->id);
+                return response()->json($post);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => true,
+                    'title' => 'Post',
+                    'message' => 'data not found'
+                ]);
+            }
+        }
     }
 
     /**
@@ -100,9 +112,25 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(AddPostRequest $request, Post $post)
     {
-        //
+        if($request->ajax() && $request->validated()){
+            try {
+                $post = Post::find($post->id);
+                $post->update($request->validated());
+                return response()->json([
+                    'success' => true,
+                    'title' => 'Post',
+                    'message' => 'successfully updated!'
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'title' => 'Post',
+                    'message' => 'failed to update post!'
+                ]);
+            }
+        }
     }
 
     /**

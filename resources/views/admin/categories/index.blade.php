@@ -121,11 +121,6 @@
                     { width: 100, targets: 2 },
                 ],
             });
-            @role('editor')
-              dataTable.column(2).visible(true);
-            @else
-              dataTable.column(2).visible(false);
-            @endrole
         }
         index();
 

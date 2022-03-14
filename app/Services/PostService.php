@@ -18,21 +18,24 @@ class PostService {
     {
         $posts = Post::select('*');
         return DataTables::eloquent($posts)
+        ->addColumn('image', function ($posts) { 
+            $url= asset('images/'.$posts->image);
+            return '<img src="'.$url.'" border="0" width="40" class="img-rounded" align="center" />';
+        })
         ->addColumn('action', function($posts){
-            $getHtml = '<button class="btn edit-category" data-cat_id="'.$posts->id.'">';
+            $getHtml = '<button class="btn btn-edit" data-toggle="modal" data-target="#editPostModal" data-post_id="'.$posts->id.'">';
             $getHtml .= '<i class="fas fa-edit"></i>';
             $getHtml .= '</button>';
-            $getHtml .= '<button class="btn removeCategory" data-cat_id="'.$posts->id.'">';
+            $getHtml .= '<button class="btn btn-delete" data-post_id="'.$posts->id.'">';
             $getHtml .= '<i class="fa fa-trash"></i>';
             $getHtml .= '</button>';
             if(auth()->user()->hasRole('editor')){
                 return $getHtml;
             }
         })
-        ->rawColumns(['action'])
-        ->addIndexColumn()
+        ->rawColumns(['image', 'action'])
         ->make(true);
-    }
+    }   
 
     public function handleImage($image)
     {

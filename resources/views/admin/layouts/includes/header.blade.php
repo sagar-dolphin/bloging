@@ -147,7 +147,9 @@
               <h1 class="m-0">@yield('heading')</h1>
               @if (request()->routeIs('admin.home'))
               @else
+              @role('writer')
                 <button id="add_user_btn" data-toggle="modal" style="color: white;" data-target="@yield('data-target')" class="btn-primary">Add @yield('heading')</button>
+              @endrole
               @endif 
           </div><!-- /.col -->
         </div><!-- /.row -->
